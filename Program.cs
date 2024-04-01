@@ -105,6 +105,24 @@ namespace VeloMax
 
                     }   
                 }else if (choix == "4"){
+
+                    Console.WriteLine("Que souhaitez-vous savoir ? ");
+                    Console.WriteLine("1. Stock par Magasin ");
+                    Console.WriteLine("2. Stock par Pièce ");
+                    Console.WriteLine("3. Stock par Fournisseur ");
+                    Console.WriteLine("4. Stock par vélo ");
+                    Console.WriteLine("5. Quantité vendues pour chaque Item ");
+                    Console.WriteLine("6. La liste des membres pour chaque programme d’adhésion ");
+                    Console.WriteLine("7. Affichez également la date d’expiration des adhésions ");
+                    Console.WriteLine("8. Moyenne des montants des commandes ");
+                    Console.WriteLine("9. Moyenne du nombre de pièces par commande ");
+                    Console.WriteLine("10. Moyenne du nombre de vélos par commande ");
+                    Console.WriteLine("11. Calcul des bonus des salariés en fonction de la satisfaction client  ");
+                    Console.WriteLine("12. Calcul du bonus moyen ");
+                    Console.WriteLine("13. Liste des produits ayant une quantité en stock <= 2 ");
+                    
+                    Console.Write("Votre choix : ");
+                    string choix_fournisseur = Console.ReadLine();
                     
                 }else
                 {

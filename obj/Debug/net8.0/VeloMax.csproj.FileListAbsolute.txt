@@ -38,3 +38,4 @@
 /Users/mac/Desktop/VeloMax/bin/Debug/net8.0/runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll
 /Users/mac/Desktop/VeloMax/obj/Debug/net8.0/VeloMax.csproj.AssemblyReference.cache
 /Users/mac/Desktop/VeloMax/obj/Debug/net8.0/VeloMax.csproj.Up2Date
+/Users/mac/Desktop/VeloMax/obj/Debug/net8.0/VeloMax.sourcelink.json
