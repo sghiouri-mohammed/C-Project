@@ -2,4 +2,4 @@
 
 ## 1 - Installer le package sur le terminal : dotnet add package MySql.Data
 
-## 2 - Modifier le sinformations de la MySql (le root et le mot de passe)
+## 2 - Modifier les informations de la base de données MySql (le root et le mot de passe)
