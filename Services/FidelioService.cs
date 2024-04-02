@@ -73,9 +73,9 @@ namespace VeloMax.Services
             Console.WriteLine($" + -------------------------------------------------------------- + ");
         }
 
-        public FidelioProgram GetFidelioProgramById(int id)
+        public Fidelio GetFidelioById(int id)
         {
-            FidelioProgram fidelioProgram = null;
+            Fidelio fidelio = null;
 
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
@@ -85,19 +85,20 @@ namespace VeloMax.Services
             command.Parameters.AddWithValue("@Id", id);
 
             using MySqlDataReader reader = command.ExecuteReader();
+
             if (reader.Read())
             {
-                fidelioProgram = new FidelioProgram
+                fidelio = new Fidelio
                 {
-                    Id = reader.GetInt32("id"),
+                    Numero = reader.GetInt32("numero"),
                     Description = reader.GetString("Description"),
                     Cout = reader.GetDecimal("Cout"),
-                    Duree = reader.GetInt32("Duree"),
+                    Duree = reader.GetString("Duree"),
                     Rabais = reader.GetDecimal("Rabais")
                 };
             }
 
-            return fidelioProgram;
+            return fidelio;
         }
     }
 }
