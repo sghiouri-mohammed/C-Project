@@ -73,6 +73,41 @@ namespace VeloMax.Services
             Console.WriteLine($" + -------------------------------------------------------------- + ");
         }
 
+        public void PrintAllClientFidelio()
+        {
+            List<ClientFidelio> clientFidelios = new List<ClientFidelio>();
+
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            string query = "SELECT * FROM Client_Fidelio";
+            MySqlCommand command = new MySqlCommand(query, connection);
+
+            using MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                clientFidelios.Add(new ClientFidelio
+                {
+                    IdClient = reader.GetInt32("id_client"),
+                    IdFidelio = reader.GetInt32("id_fidelio"),
+                    DateAdhesion = reader.GetDateTime("date_adhesion")
+                });
+            }
+
+            Console.WriteLine("Liste des clients affectés aux programmes Fidélio :");
+
+            Console.WriteLine($" + -------------------------------------------------------------- + ");
+            Console.WriteLine($" | ID Client || ID Fidelio || Date d'adhésion || ");
+            foreach (var clientFidelio in clientFidelios)
+            {
+                Console.WriteLine($" + -------------------------------------------------------------- + ");
+                Console.WriteLine($" | {clientFidelio.IdClient} || {clientFidelio.IdFidelio} || {clientFidelio.DateAdhesion} || ");
+            }
+            
+            Console.WriteLine($" + -------------------------------------------------------------- + ");
+        }
+
+
         public Fidelio GetFidelioById(int id)
         {
             Fidelio fidelio = null;

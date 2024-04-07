@@ -65,6 +65,15 @@ namespace VeloMax.Services
                 };
             }
 
+            
+                Console.WriteLine("+------+------+--------+------------------+----------------------+-------------+----------+----------------+----------------+");
+                Console.WriteLine("|  Id  | Nom  | Prenom |        Rue       |         Ville        | Code Postal | Province |      Tel       |    Courriel    |");
+                Console.WriteLine("+------+------+--------+------------------+----------------------+-------------+----------+----------------+----------------+");
+                Console.WriteLine($"| {reader.GetInt32("id"),-5} | {reader.GetString("nom"),-4} | {reader.GetString("prenom"),-6} | {reader.GetString("rue"),-16} | {reader.GetString("ville"),-20} | {reader.GetInt32("code_postal"),-11} | {reader.GetString("province"),-8} | {reader.GetString("tel"),-14} | {reader.GetString("courriel"),-14} |");
+            
+                Console.WriteLine("+------+------+--------+------------------+----------------------+-------------+----------+----------------+----------------+");
+
+
             return particulier;
         }
 

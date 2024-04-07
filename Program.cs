@@ -1,12 +1,15 @@
 ﻿using System;
 using Org.BouncyCastle.Math.EC.Rfc7748;
+using MySql.Data.MySqlClient;
 using VeloMax.Models;
 using VeloMax.Services;
+using Org.BouncyCastle.Asn1.Misc;
 
 namespace VeloMax
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             string x = " " ;
@@ -19,6 +22,8 @@ namespace VeloMax
                 Console.WriteLine("2. Gérer Les Boutiques ");
                 Console.WriteLine("3. Gérer Les Fournisseurs ");
                 Console.WriteLine("4. Voir les Statistiques du Magasin ");
+                Console.WriteLine("5. Gestion Fidelio ");
+                Console.WriteLine("6. Gestion Programme Fidelio ");
 
                 Console.Write("Votre choix : ");
                 string choix = Console.ReadLine();
@@ -55,7 +60,7 @@ namespace VeloMax
                 }
                 else if (choix == "2")
                 {
-                    Console.WriteLine("Que souhaitez-vous faire ? ");
+                    Console.WriteLine(" Que souhaitez-vous faire ? ");
                     Console.WriteLine("1. Ajouter une Boutique ");
                     Console.WriteLine("2. Modifier une Boutique ");
                     Console.WriteLine("3. Supprimer une Boutique ");
@@ -80,6 +85,7 @@ namespace VeloMax
 
                     }
                 }else if(choix == "3") {
+
                     Console.WriteLine("Que souhaitez-vous faire ? ");
                     Console.WriteLine("1. Ajouter un Fournisseur ");
                     Console.WriteLine("2. Modifier un Fournisseur ");
@@ -124,7 +130,55 @@ namespace VeloMax
                     Console.Write("Votre choix : ");
                     string choix_fournisseur = Console.ReadLine();
                     
-                }else
+                }else if ( choix == "5"){
+
+                    Console.WriteLine("Que souhaitez-vous faire ? ");
+                    Console.WriteLine("1. Ajouter un programme Fidelio ");
+                    Console.WriteLine("2. Modifier un programme Fidelio ");
+                    Console.WriteLine("3. Supprimer un programme Fidelio ");
+                    Console.WriteLine("4. Lister les programmes Fidelio ");
+
+                    Console.Write("Votre choix : ");
+                    string choix_fidelio = Console.ReadLine();
+
+                    if (choix_fidelio == "1"){
+                        // Ajouter une Boutique
+                        AjouterFidelio();
+
+                    }else if (choix_fidelio == "2") {
+                        // Modifier une Boutique
+                        ModifierFidelio();
+
+                    }else if (choix_fidelio == "3") {
+                        SupprimerFidelio();
+
+                    }else if (choix_fidelio == "4") {
+                        PrintAllFidelio();
+                    }   
+
+                }else if( choix == "6" ){
+                    Console.WriteLine("Que souhaitez-vous faire ? ");
+                    Console.WriteLine("1. Afficher le nombre de commandes par clients ");
+                    Console.WriteLine("2. Affecter un Client à un Programme Fidelio ");
+                    Console.WriteLine("3. Affecter la liste des clients affectés à un programme Fidelio ");
+
+                    Console.Write("Votre choix : ");
+                    string choix_fidelio = Console.ReadLine();
+
+                    if (choix_fidelio == "1"){
+                        // Ajouter une Boutique
+                        AjouterFidelio();
+
+                    }else if (choix_fidelio == "2") {
+                        // Modifier une Boutique
+                        AffecterClientAFidelio();
+
+                    }else if (choix_fidelio == "3") {
+                        // Modifier une Boutique
+                        PrintAllClientFidelio();
+                    } 
+                }
+                else
                 {
                     Console.WriteLine("Choix invalide !");
                 }
@@ -136,6 +190,7 @@ namespace VeloMax
             
         }
 
+        // Gestion Particuliers
         static void AjouterParticulier()
         {
             Console.WriteLine("===================== Ajout d'un particulier =============== \n");
@@ -235,6 +290,8 @@ namespace VeloMax
             service.PrintAllParticuliers();
         }
 
+        
+        // Gestion Boutiques
         static void AjouterBoutique()
         {
             Console.WriteLine("======================= Ajout d'une boutique ======================= \n");
@@ -339,7 +396,7 @@ namespace VeloMax
             Console.WriteLine(" =========================== Boutique modifiée avec succès ! =========================== \n");
         }
 
-
+        // Gestion Fournisseurs
         static void AjouterFournisseur()
         {
             Console.WriteLine("======================= Ajout d'un fournisseur ======================= \n");
@@ -422,6 +479,168 @@ namespace VeloMax
             service.ModifierFournisseur(fournisseur);
 
             Console.WriteLine(" =========================== Fournisseur modifié avec succès ! =========================== \n");
+
         }
+
+        
+        // Gestion Fidelio
+        static void AjouterFidelio()
+    {
+        Console.WriteLine("======================= Ajout d'un enregistrement Fidelio ======================= \n");
+        Console.Write("Entrez la description : ");
+        string description = Console.ReadLine();
+        
+        Console.Write("Entrez le coût : ");
+        decimal cout;
+        while (!decimal.TryParse(Console.ReadLine(), out cout))
+        {
+            Console.WriteLine("Veuillez entrer un coût valide : ");
+        }
+
+        Console.Write("Entrez la durée : ");
+        string duree = Console.ReadLine();
+
+        Console.Write("Entrez le rabais (%) : ");
+        int rabais;
+        while (!int.TryParse(Console.ReadLine(), out rabais))
+        {
+            Console.WriteLine("Veuillez entrer un rabais valide : ");
+        }
+
+        // Code pour ajouter un enregistrement Fidelio
+        FidelioService service = new FidelioService();
+        Fidelio fidelio = new Fidelio(description, cout, duree, rabais);
+        service.AjouterFidelio(fidelio);
+        Console.WriteLine("Enregistrement Fidelio ajouté avec succès !");
+    }
+
+        static void ModifierFidelio()
+        {
+            Console.WriteLine("======================= Modification d'un enregistrement Fidelio ======================= \n");
+            Console.Write("Entrez l'ID de l'enregistrement Fidelio à modifier : ");
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Veuillez entrer un ID valide : ");
+            }
+
+            Console.Write("Entrez la nouvelle description : ");
+            string description = Console.ReadLine();
+            
+            Console.Write("Entrez le nouveau coût : ");
+            decimal cout;
+            while (!decimal.TryParse(Console.ReadLine(), out cout))
+            {
+                Console.WriteLine("Veuillez entrer un coût valide : ");
+            }
+
+            Console.Write("Entrez la nouvelle durée : ");
+            string duree = Console.ReadLine();
+
+            Console.Write("Entrez le nouveau rabais (%) : ");
+            int rabais;
+            while (!int.TryParse(Console.ReadLine(), out rabais))
+            {
+                Console.WriteLine("Veuillez entrer un rabais valide : ");
+            }
+
+            // Code pour modifier un enregistrement Fidelio
+            FidelioService service = new FidelioService();
+            Fidelio fidelio = service.GetFidelioById(id);
+            if (fidelio != null)
+            {
+                fidelio.Description = description;
+                fidelio.Cout = cout;
+                fidelio.Duree = duree;
+                fidelio.Rabais = rabais;
+                service.ModifierFidelio(fidelio);
+                Console.WriteLine("Enregistrement Fidelio modifié avec succès !");
+            }
+            else
+            {
+                Console.WriteLine("Aucun enregistrement Fidelio trouvé avec cet ID.");
+            }
+        }
+
+        static void SupprimerFidelio()
+        {
+            Console.WriteLine("======================= Suppression d'un enregistrement Fidelio ======================= \n");
+            Console.Write("Entrez l'ID de l'enregistrement Fidelio à supprimer : ");
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Veuillez entrer un ID valide : ");
+            }
+
+            // Code pour supprimer un enregistrement Fidelio
+            FidelioService service = new FidelioService();
+            Fidelio fidelio = service.GetFidelioById(id);
+            if (fidelio != null)
+            {
+                service.SupprimerFidelio(fidelio);
+                Console.WriteLine("Enregistrement Fidelio supprimé avec succès !");
+            }
+            else
+            {
+                Console.WriteLine("Aucun enregistrement Fidelio trouvé avec cet ID.");
+            }
+        }
+
+        static void PrintAllFidelio()
+        {
+            Console.WriteLine("======================= Affichage de tous les enregistrements Fidelio ======================= \n");
+            // Code pour afficher tous les enregistrements de Fidelio
+            FidelioService service = new FidelioService();
+            service.PrintAllFidelio();
+        }
+
+        static void PrintAllClientFidelio()
+        {
+            Console.WriteLine("======================= Affichage de tous les Client inscis à un programmes Fidelio ======================= \n");
+            // Code pour afficher tous les enregistrements de Fidelio
+            FidelioService service = new FidelioService();
+            service.PrintAllClientFidelio();
+        }
+
+        // Méthode pour insérer une nouvelle entrée dans la table Client_Fidelio
+        static void AffecterClientAFidelio()
+        {
+            PrintAllParticuliers();
+            Console.WriteLine("\n");
+            PrintAllFidelio();
+            // Demander à l'utilisateur les ID du client particulier et du programme Fidelio
+            Console.WriteLine("Entrez l'ID du client particulier : ");
+            int idClient = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Entrez l'ID du programme Fidelio : ");
+            int idFidelio = int.Parse(Console.ReadLine());
+
+            // Demander à l'utilisateur la date d'adhésion
+            Console.WriteLine("Entrez la date d'adhésion au format YYYY-MM-DD : ");
+            DateTime dateAdhesion = DateTime.Parse(Console.ReadLine());
+            try
+            {
+                string _connectionString = "server=localhost;userid=root;password=;database=VeloMax";
+                using (var connection = new MySqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    string query = "INSERT INTO Client_Fidelio (id_client, id_fidelio, date_adhesion) VALUES (@IdClient, @IdFidelio, @DateAdhesion)";
+                    
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@IdClient", idClient);
+                    command.Parameters.AddWithValue("@IdFidelio", idFidelio);
+                    command.Parameters.AddWithValue("@DateAdhesion", dateAdhesion);
+
+                    command.ExecuteNonQuery();
+
+                    Console.WriteLine("Client affecté au programme Fidelio avec succès !");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erreur lors de l'affectation du client au programme Fidelio : " + ex.Message);
+            }
+        }   
     }
 }
