@@ -54,7 +54,6 @@ namespace VeloMax
 
                     }else if (choix_particulier == "4") {
                         PrintAllParticuliers();
-
                     }
                     
                 }
