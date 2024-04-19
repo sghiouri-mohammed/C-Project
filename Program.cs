@@ -12,11 +12,12 @@ namespace VeloMax
 
         static void Main(string[] args)
         {
+            
             string x = " " ;
             while ( x != "stop" && x != "Stop" && x != "STOP" )
             {
                 Console.WriteLine("Bienvenue dans le système VeloMax !");
-                Console.WriteLine("Bonjour Monsieur  Legrand !");
+                Console.WriteLine("Bonjour Monsieur Legrand !");
                 Console.WriteLine("Que souhaitez-vous faire ? ");
                 Console.WriteLine("1. Gérer Les Clients Particulier ");
                 Console.WriteLine("2. Gérer Les Boutiques ");
@@ -24,6 +25,8 @@ namespace VeloMax
                 Console.WriteLine("4. Voir les Statistiques du Magasin ");
                 Console.WriteLine("5. Gestion Fidelio ");
                 Console.WriteLine("6. Gestion Programme Fidelio ");
+                Console.WriteLine("7. Gestion des Modèles de Vélo eet Assemblage ");
+                Console.WriteLine("8. Gestion des commandes de Vélos ");
 
                 Console.Write("Votre choix : ");
                 string choix = Console.ReadLine();
@@ -111,23 +114,59 @@ namespace VeloMax
                     }   
                 }else if (choix == "4"){
 
-                    Console.WriteLine("Que souhaitez-vous savoir ? ");
-                    Console.WriteLine("1. Stock par Magasin ");
-                    Console.WriteLine("2. Stock par Pièce ");
-                    Console.WriteLine("3. Stock par Fournisseur ");
-                    Console.WriteLine("4. Stock par vélo ");
-                    Console.WriteLine("5. Quantité vendues pour chaque Item ");
-                    Console.WriteLine("6. La liste des membres pour chaque programme d’adhésion ");
-                    Console.WriteLine("7. Affichez également la date d’expiration des adhésions ");
-                    Console.WriteLine("8. Moyenne des montants des commandes ");
-                    Console.WriteLine("9. Moyenne du nombre de pièces par commande ");
-                    Console.WriteLine("10. Moyenne du nombre de vélos par commande ");
-                    Console.WriteLine("11. Calcul des bonus des salariés en fonction de la satisfaction client  ");
-                    Console.WriteLine("12. Calcul du bonus moyen ");
-                    Console.WriteLine("13. Liste des produits ayant une quantité en stock <= 2 ");
+                    Console.WriteLine("1. Stock par Vélo");
+                    Console.WriteLine("2. Nombre de Fournisseurs");
+                    Console.WriteLine("3. Nombre de Vélos");
+                    Console.WriteLine("4. Quantité vendue pour chaque Vélo");
+                    Console.WriteLine("5. Meilleur client Particulier (qui fait le plus de ventes)");
+                    Console.WriteLine("6. Liste des membres pour chaque programme Fidelio");
+                    Console.WriteLine("7. Moyenne des montants des commandes");
+                    Console.WriteLine("8. Liste des produits ayant une quantité en stock <= 2");
+                    Console.WriteLine("9. Nombre de commandes par client Particulier");
+
                     
                     Console.Write("Votre choix : ");
-                    string choix_fournisseur = Console.ReadLine();
+                    string choix_stats = Console.ReadLine();
+
+                    StatistiqueService stats = new StatistiqueService();
+
+
+                    if (choix_stats == "1") {
+                        Console.WriteLine("Affichage du stock par vélo...");
+                        stats.StockParVelo();
+                    }
+                    else if (choix_stats == "2") {
+                        Console.WriteLine("Affichage du nombre de fournisseurs...");
+                        stats.NombreFournisseurs();
+                    }
+                    else if (choix_stats == "3") {
+                        Console.WriteLine("Affichage du nombre de vélos...");
+                        stats.NombreVelos();
+                    }
+                    else if (choix_stats == "4") {
+                        Console.WriteLine("Affichage de la quantité vendue pour chaque vélo...");
+                        stats.QuantiteVendueParVelo();
+                    }
+                    else if (choix_stats == "5") {
+                        Console.WriteLine("Affichage du meilleur client particulier...");
+                        stats.MeilleurClientParticulier();
+                    }
+                    else if (choix_stats == "6") {
+                        Console.WriteLine("Affichage de la liste des membres pour chaque programme fidélité...");
+                        stats.MembresParProgrammeFidelite();
+                    }
+                    else if (choix_stats == "7") {
+                        Console.WriteLine("Affichage de la moyenne des montants des commandes...");
+                        stats.MoyenneMontantsCommandes();
+                    }
+                    else if (choix_stats == "8") {
+                        Console.WriteLine("Affichage de la liste des produits ayant une quantité en stock <= 2...");
+                        stats.ProduitsQuantiteStockFaible();
+                    }
+                    else if (choix_stats == "9") {
+                        Console.WriteLine("Affichage du nombre de commandes par client particulier...");
+                        stats.NombreCommandesParClientParticulier();
+                    }               
                     
                 }else if ( choix == "5"){
 
@@ -176,6 +215,58 @@ namespace VeloMax
                         // Modifier une Boutique
                         PrintAllClientFidelio();
                     } 
+                }else if ( choix == "7"){
+
+                    Console.WriteLine("Que souhaitez-vous faire ? ");
+                    Console.WriteLine("1. Ajouter un Modèle d'assemblage ");
+                    Console.WriteLine("2. Modifier un Modèle d'assemblage ");
+                    Console.WriteLine("3. Supprimer un Modèle d'assemblage ");
+                    Console.WriteLine("4. Lister les Modèles d'assemblage ");
+
+                    Console.Write("Votre choix : ");
+                    string choix_assemblage = Console.ReadLine();
+
+                    if (choix_assemblage == "1"){
+                        // Ajouter une Boutique
+                        AjouterAssemblage();
+
+                    }else if (choix_assemblage == "2") {
+                        // Modifier une Boutique
+                        ModifierAssemblage();
+
+                    }else if (choix_assemblage == "3") {
+                        SupprimerAssemblage();
+
+                    }else if (choix_assemblage == "4") {
+                        PrintAllAssemblages();
+                    }   
+
+                }else if ( choix == "8"){
+
+                    Console.WriteLine("Que souhaitez-vous faire ? ");
+                    Console.WriteLine("1. Ajouter une Commande pour un client Particulier ");
+                    Console.WriteLine("2. Modifier une Commande pour un client Particulier ");
+                    Console.WriteLine("3. Supprimer une Commande pour un client Particulier ");
+                    Console.WriteLine("4. Lister les Commandes ");
+
+                    Console.Write("Votre choix : ");
+                    string choix_assemblage = Console.ReadLine();
+
+                    if (choix_assemblage == "1"){
+                        // Ajouter une Boutique
+                        AjouterCommandeParticulier();
+
+                    }else if (choix_assemblage == "2") {
+                        // Modifier une Boutique
+                        ModifierCommandeParticulier();
+
+                    }else if (choix_assemblage == "3") {
+                        SupprimerCommandeParticulier();
+
+                    }else if (choix_assemblage == "4") {
+                        PrintAllCommandesParticulier();
+                    }   
+
                 }
                 else
                 {
@@ -641,5 +732,258 @@ namespace VeloMax
                 Console.WriteLine("Erreur lors de l'affectation du client au programme Fidelio : " + ex.Message);
             }
         }   
+
+
+        // Géstion des Assemblages et modèles
+        static void AjouterAssemblage()
+        {
+            Console.WriteLine("===================== Ajout d'un assemblage =============== \n");
+
+            Console.Write("Entrez le nom : ");
+            string nom = Console.ReadLine();
+
+            Console.Write("Entrez la grandeur : ");
+            string grandeur = Console.ReadLine();
+
+            Console.Write("Entrez le cadre : ");
+            string cadre = Console.ReadLine();
+
+            Console.Write("Entrez le guidon : ");
+            string guidon = Console.ReadLine();
+
+            Console.Write("Entrez les freins : ");
+            string freins = Console.ReadLine();
+
+            Console.Write("Entrez la selle : ");
+            string selle = Console.ReadLine();
+
+            Console.Write("Entrez le dérailleur avant : ");
+            string derAvant = Console.ReadLine();
+
+            Console.Write("Entrez le dérailleur arrière : ");
+            string derArriere = Console.ReadLine();
+
+            Console.Write("Entrez la roue avant : ");
+            string roueAvant = Console.ReadLine();
+
+            Console.Write("Entrez la roue arrière : ");
+            string roueArriere = Console.ReadLine();
+
+            Console.Write("Entrez les réflecteurs : ");
+            string reflecteurs = Console.ReadLine();
+
+            Console.Write("Entrez le pédalier : ");
+            string pedalier = Console.ReadLine();
+
+            Console.Write("Entrez l'ordinateur : ");
+            string ordinateur = Console.ReadLine();
+
+            Console.Write("Entrez le panier : ");
+            string panier = Console.ReadLine();
+
+            // Créez une instance de Assemblage avec les valeurs saisies
+            Assemblage assemblage = new Assemblage(nom, grandeur, cadre, guidon, freins, selle, derAvant, derArriere, roueAvant, roueArriere, reflecteurs, pedalier, ordinateur, panier);
+
+            // Ajoutez l'assemblage à la base de données
+            AssemblageService service = new AssemblageService();
+            service.AjouterAssemblage(assemblage);
+
+            Console.WriteLine(" ======================= Assemblage ajouté avec succès ! ======================= \n");
+        }
+
+        static void ModifierAssemblage()
+        {
+            // Demandez ici l'identifiant de l'assemblage à modifier
+            Console.WriteLine("Entrez l'ID de l'assemblage à modifier : ");
+            int idAssemblage = int.Parse(Console.ReadLine());
+
+            // Demandez ici les nouvelles valeurs pour l'assemblage
+            Console.Write("Entrez le nouveau nom : ");
+            string nom = Console.ReadLine();
+
+            Console.Write("Entrez la nouvelle grandeur : ");
+            string grandeur = Console.ReadLine();
+
+            Console.Write("Entrez le nouveau cadre : ");
+            string cadre = Console.ReadLine();
+
+            Console.Write("Entrez le nouveau guidon : ");
+            string guidon = Console.ReadLine();
+
+            Console.Write("Entrez les nouveaux freins : ");
+            string freins = Console.ReadLine();
+
+            Console.Write("Entrez la nouvelle selle : ");
+            string selle = Console.ReadLine();
+
+            Console.Write("Entrez le nouveau dérailleur avant : ");
+            string derAvant = Console.ReadLine();
+
+            Console.Write("Entrez le nouveau dérailleur arrière : ");
+            string derArriere = Console.ReadLine();
+
+            Console.Write("Entrez la nouvelle roue avant : ");
+            string roueAvant = Console.ReadLine();
+
+            Console.Write("Entrez la nouvelle roue arrière : ");
+            string roueArriere = Console.ReadLine();
+
+            Console.Write("Entrez les nouveaux réflecteurs : ");
+            string reflecteurs = Console.ReadLine();
+
+            Console.Write("Entrez le nouveau pédalier : ");
+            string pedalier = Console.ReadLine();
+
+            Console.Write("Entrez le nouvel ordinateur : ");
+            string ordinateur = Console.ReadLine();
+
+            Console.Write("Entrez le nouveau panier : ");
+            string panier = Console.ReadLine();
+
+            // Créez une instance de Assemblage avec les nouvelles valeurs
+            Assemblage assemblage = new Assemblage(idAssemblage, nom, grandeur, cadre, guidon, freins, selle, derAvant, derArriere, roueAvant, roueArriere, reflecteurs, pedalier, ordinateur, panier);
+
+            // Modifiez l'assemblage dans la base de données
+            AssemblageService service = new AssemblageService();
+            service.ModifierAssemblage(assemblage);
+
+            Console.WriteLine(" ======================= Assemblage modifié avec succès ! ======================= \n");
+        }
+
+        static void SupprimerAssemblage()
+        {
+            Console.WriteLine("======================= Suppression d'un assemblage ======================= \n");
+            Console.Write("Entrez l'ID de l'assemblage à supprimer : ");
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Veuillez entrer un ID valide : ");
+            }
+
+            // Code pour supprimer un assemblage
+            AssemblageService service = new AssemblageService();
+            Assemblage assemblage = service.GetAssemblageById(id);
+            if (assemblage != null)
+            {
+                service.SupprimerAssemblage(assemblage);
+                Console.WriteLine("Assemblage supprimé avec succès !");
+            }
+            else
+            {
+                Console.WriteLine("Aucun assemblage trouvé avec cet ID.");
+            }
+        }
+
+        static void PrintAllAssemblages()
+        {
+            // Affichez tous les assemblages
+            AssemblageService service = new AssemblageService();
+            service.PrintAllAssemblages();
+        }
+
+        // Gestion des commandes
+
+        static void AjouterCommandeParticulier()
+        {
+            Console.WriteLine("===================== Ajout d'une commande particulier ======================= \n");
+
+            // Demander les informations nécessaires pour la commande particulier
+            Console.Write("Entrez l'ID du particulier : ");
+            int idParticulier = int.Parse(Console.ReadLine());
+
+            Console.Write("Entrez l'ID du vélo : ");
+            int idVelo = int.Parse(Console.ReadLine());
+
+            // La date de commande est automatiquement définie sur la date actuelle
+            DateTime dateCommande = DateTime.Now;
+
+            Console.Write("Entrez l'adresse de livraison : ");
+            string adresseLivraison = Console.ReadLine();
+
+            Console.Write("Entrez la date de livraison : ");
+            DateTime dateLivraison = DateTime.Parse(Console.ReadLine());
+
+            Console.Write("Entrez la quantité : ");
+            int quantite = int.Parse(Console.ReadLine());
+
+            // Créer une instance de CommandeParticulier avec les valeurs saisies
+            CommandeParticulier commandeParticulier = new CommandeParticulier(idParticulier, idVelo, dateCommande, adresseLivraison, dateLivraison, quantite);
+
+            // Ajouter la commande particulier à la base de données
+            CommandeParticulierService service = new CommandeParticulierService();
+            service.AjouterCommandeParticulier(commandeParticulier);
+
+            Console.WriteLine(" ======================= Commande particulier ajoutée avec succès ! ======================= \n");
+        }
+
+        static void ModifierCommandeParticulier()
+        {
+            Console.WriteLine("======================= Modification d'une commande particulier ======================= \n");
+
+            // Demander l'ID de la commande particulier à modifier
+            Console.Write("Entrez l'ID de la commande particulier à modifier : ");
+            int idCommandeParticulier = int.Parse(Console.ReadLine());
+
+            // Demander les nouvelles valeurs pour la commande particulier
+            Console.Write("Entrez l'ID du particulier : ");
+            int idParticulier = int.Parse(Console.ReadLine());
+
+            Console.Write("Entrez l'ID du vélo : ");
+            int idVelo = int.Parse(Console.ReadLine());
+
+            // La date de commande est automatiquement définie sur la date actuelle
+            DateTime dateCommande = DateTime.Now;
+
+            Console.Write("Entrez la date de livraison : ");
+            DateTime dateLivraison = DateTime.Parse(Console.ReadLine());
+
+            Console.Write("Entrez l'adresse de livraison : ");
+            string adresseLivraison = Console.ReadLine();
+
+            Console.Write("Entrez la quantité : ");
+            int quantite = int.Parse(Console.ReadLine());
+
+            // Créer une instance de CommandeParticulier avec les nouvelles valeurs
+            CommandeParticulier commandeParticulier = new CommandeParticulier(idCommandeParticulier, idParticulier, idVelo, dateCommande, adresseLivraison, dateLivraison, quantite);
+
+            // Modifier la commande particulier dans la base de données
+            CommandeParticulierService service = new CommandeParticulierService();
+            service.ModifierCommandeParticulier(commandeParticulier);
+
+            Console.WriteLine(" ======================= Commande particulier modifiée avec succès ! ======================= \n");
+        }
+
+        static void SupprimerCommandeParticulier()
+        {
+            Console.WriteLine("======================= Suppression d'une commande particulier ======================= \n");
+            Console.Write("Entrez l'ID de la commande particulier à supprimer : ");
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Veuillez entrer un ID valide : ");
+            }
+
+            // Code pour supprimer une commande particulier
+            CommandeParticulierService service = new CommandeParticulierService();
+            CommandeParticulier commandeParticulier = service.GetCommandeParticulierById(id);
+            if (commandeParticulier != null)
+            {
+                service.SupprimerCommandeParticulier(commandeParticulier);
+                Console.WriteLine("Commande particulier supprimée avec succès !");
+            }
+            else
+            {
+                Console.WriteLine("Aucune commande particulier trouvée avec cet ID.");
+            }
+        }
+
+
+        static void PrintAllCommandesParticulier()
+        {
+            CommandeParticulierService service = new CommandeParticulierService();
+            service.PrintAllCommandesParticuliers();
+        }
+
+
     }
 }

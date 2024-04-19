@@ -60,6 +60,8 @@ namespace VeloMax.Models
             command.ExecuteNonQuery();
         }
 
+        
+
         // Supprimer un vélo de la base de données
         public void SupprimerVelo(MySqlConnection connection)
         {
@@ -72,3 +74,4 @@ namespace VeloMax.Models
         }
     }
 }
+

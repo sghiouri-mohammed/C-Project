@@ -5,6 +5,13 @@ namespace VeloMax.Models
 {
     public class Particulier
     {
+        // operations CRUD :
+        
+        // Create : INSERT INTO ...
+        // Read : SELECT .. FROM ...
+        // Update :  UPDATE SET ...
+        // Delete : DELETE FROM ....
+
         public int Id { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }

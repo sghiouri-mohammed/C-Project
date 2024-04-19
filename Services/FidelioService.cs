@@ -115,9 +115,9 @@ namespace VeloMax.Services
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            string query = "SELECT * FROM Fidelio WHERE id = @Id";
+            string query = "SELECT * FROM Fidelio WHERE Numero = @Numero";
             MySqlCommand command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@Id", id);
+            command.Parameters.AddWithValue("@Numero", id);
 
             using MySqlDataReader reader = command.ExecuteReader();
 
